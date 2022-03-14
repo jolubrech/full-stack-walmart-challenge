@@ -1,0 +1,50 @@
+<div id="shopping-cart" class="card">
+
+  <div class="card-body">
+    <h5 class="card-title">Resumen</h5>
+
+
+
+    <div *ngIf="cartItems.length === 0" class="alert alert-info">Su carrito está vacío.</div>
+
+    <ul *ngIf="cartItems.length > 0" class="list-group">
+      <li class="list-group-item" *ngFor="let item of cartItems">
+        <app-cart-item [cartItem]="item"></app-cart-item>
+      </li>
+
+
+
+      <div *ngIf="isDiscountAvailable">
+        <hr>
+        <span class="text-primary">Agrega
+          <strong>{{availableDiscountMessage.remainingDiscountMoney | currency: 'CLP'}}</strong> en productos
+          <strong>{{availableDiscountMessage.brand}}</strong> y aprovecha un
+          descuento total de <strong>{{availableDiscountMessage.discount | currency: 'CLP'}}</strong> en tu
+          compra!</span>
+        <br>
+      </div>
+
+
+      <div *ngIf="isDiscountApplied">
+        <span class="text-muted">Se aplicó un descuento de <strong>{{discountMessage.discount | currency:
+            'CLP'}}</strong> por haber
+          comprado
+          <strong>{{discountMessage.threshold}}</strong> de productos <strong>{{discountMessage.brand}}</strong>!
+        </span>
+        <hr>
+        <br>
+      </div>
+
+      <li class="list-group-item active">
+        <strong>Total</strong> {{ cartTotalAmount | currency:'CLP' }}
+      </li>
+    </ul>
+
+
+  </div>
+
+  <button (click)="cleanShoppingCart()" class="btn btn-xs btn btn-warning" *ngIf="cartItems.length > 0">
+    <fa-icon [icon]="faBroom">
+    </fa-icon> Limpiar Carrito
+  </button>
+</div>

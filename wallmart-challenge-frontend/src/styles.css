@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+.logo {
+  width:100%;
+  max-width: 195px;
+  height: 195px;
+}
+
+#shopping-cart, #filters {
+  position: fixed;
+}

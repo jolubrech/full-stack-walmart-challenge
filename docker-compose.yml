@@ -1,0 +1,40 @@
+version: "3"
+services:
+  app-front:
+    image: wallmart-challenge-frontend
+    stdin_open: true
+    ports:
+      - "80:80"
+    networks:
+      - stack-network
+  app-back:
+    image: wallmart-challenge-backend
+    ports:
+      - "3000:3000"
+    networks:
+      - stack-network
+    depends_on:
+      - mongo_db
+
+  mongo_db:
+    image: mongo:3.6.8
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=brandDiscountsUser
+      - MONGO_INITDB_ROOT_PASSWORD=brandDiscountsPassword
+    ports:
+      - 27017:27017
+    networks:
+      - stack-network
+
+  mongo_seed:
+    image: mongo:3.6.8
+    links:
+      - mongo_db
+    volumes:
+      - ./wallmart-challenge-backend/src/infrastructure/db/data:/database
+    command: /database/import.sh mongo_db
+    networks:
+      - stack-network
+networks:
+  stack-network:
+    driver: bridge

@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-md-2">
+    <app-filters (selectedFilters)="searchFilteredBrands($event)"></app-filters>
+  </div>
+
+
+  <div class="col-md-8">
+    <app-products-listing [selectedFilters]="childSelectedFilters"></app-products-listing>
+  </div>
+
+
+  <div class="col-md-2">
+    <app-cart></app-cart>
+  </div>
+</div>
